@@ -9,7 +9,7 @@ import BankPlanetImg from "../assets/images/BankPlanet.png";
 import Bifrost from "../assets/images/Bifrost.png";
 import BifrostPlanetImg from "../assets/images/BifrostPlanet.png";
 
-const Home = () => {
+const Home1 = () => {
     const [show, setShow] = useState(false);
     return (
         <>
@@ -63,6 +63,8 @@ const Home = () => {
                 show={show}
                 fullscreen={true}
                 onHide={() => setShow(false)}
+                dialogClassName="modal-100w"
+                aria-labelledby="example-custom-modal-styling-title"
             >
                 <Modal.Header closeButton>
                     <Modal.Title id="example-custom-modal-styling-title">
@@ -70,11 +72,11 @@ const Home = () => {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <iframe className="" style={{ height: "100vh", width: "100%" }} src="http://jackpott.in/New%20folder/"></iframe>
+                    <iframe className="w-100" style={{ height: "100vh", width: "100vw" }} src="http://jackpott.in/New%20folder/"></iframe>
                 </Modal.Body>
             </Modal>
         </>
     );
 };
 
-export default Home;
+export default Home1;

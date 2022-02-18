@@ -7,7 +7,7 @@ import Public2 from './pages/Public2';
 
 function App() {
   return (
-    <div className="App">
+    <>
       <BrowserRouter>
       <Routes>
         <Route path="/" element={ <Home />} />
@@ -15,7 +15,7 @@ function App() {
         <Route path="/2" element={<Public2 />} />
       </Routes>
     </BrowserRouter>
-    </div>
+    </>
   );
 }
 
