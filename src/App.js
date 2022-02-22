@@ -44,8 +44,8 @@ function App() {
   }, [account, setAccount]);
 
   return (
-    <div className="App">
-      <BrowserRouter>
+    <>
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={ <Home />} />
         <Route path="/1" element={<Public1 />} />
@@ -53,7 +53,7 @@ function App() {
       </Routes>
     </BrowserRouter>
     <MetamaskPromptDialog />
-    </div>
+    </>
   );
 }
 

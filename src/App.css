@@ -2,6 +2,13 @@
   /* background-image: url('./images/ArcadePlanet.png'); */
 }
 
+.all-planet {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding-top: 150px;
+}
+
 .planet-div{
   display: flex;
     flex-direction: column;
@@ -23,33 +30,56 @@
   width:13rem;
 }
 
-@media screen and (max-width: 968px) {
+@media screen and (max-width: 1200px) {
+
   .zoom {
     transition: transform .2s; /* Animation */
     width: 15rem;
     /* margin-top: -80px; */
   }
   .planet-name{
-    width: 100%;
+    width:13rem;
+    /* height:50px; */
+  }
+}
+@media screen and (max-width: 968px) {
+
+  .zoom {
+    transition: transform .2s; /* Animation */
+    width: 15rem;
+    /* margin-top: -80px; */
+  }
+  .planet-name{
+    width:13rem;
     /* height:50px; */
   }
 }
 @media screen and (max-width: 768px) {
-  .zoom {
-    transition: transform .2s; /* Animation */
-    width: 16rem;
+  .all-planet {
+    display: flex;
+    flex-direction: column;
+    padding-top: 50px;
+    /* align-items: center; */
+    /* justify-content: space-around; */
   }
-  .planet-name{
-    width: 100%;
-  }
-}
-@media screen and (max-width: 472px) {
   .zoom {
     transition: transform .2s; /* Animation */
     width: 20rem;
   }
   .planet-name{
-    width: 100%;
-    height:auto;
+    width:15rem;
+  }
+}
+@media screen and (max-width: 472px) {
+  .all-planet {
+    display: flex;
+    flex-direction: column;
+  }
+  .zoom {
+    transition: transform .2s; /* Animation */
+    width: 20rem;
+  }
+  .planet-name{
+    width:13rem;
   }
 }

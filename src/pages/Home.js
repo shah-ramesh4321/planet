@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Modal, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -20,9 +20,9 @@ const Home = () => {
   const v1Details = useRecoilValue(v1DetailsAtom);
   const [account, setAccount] = useRecoilState(accountAtom);
   const [metamaskPresent, setMetamaskPresent] = useRecoilState(metamaskPresentAtom);
-  const [ , setContainsToken] = useRecoilState(containsTokenAtom);
+  const [ containsToken , setContainsToken] = useRecoilState(containsTokenAtom);
   const [open, setOpen] = useState(false);
-
+  const [show, setShow] = useState(false);
 
   const handleArcadeClick = async () => {
     if(metamaskPresent) {
@@ -30,9 +30,14 @@ const Home = () => {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       if(account) {
         const contract = new ethers.Contract(v1Details.contract_address, v1Details.contract_abi, provider);
-        const balance = await contract.balanceOf(account);
-        setContainsToken(parseInt(balance.toString()) > 0);
-        if(parseInt(balance.toString()) === 0) setOpen(true);
+        let balance = await contract.balanceOf(account);
+        if(parseInt(balance.toString()) > 0){
+          setContainsToken(parseInt(balance.toString()) > 0);
+          setShow(true);
+        } else {
+          setOpen(true);
+        }
+
 
       } else {
         // setAccounts()
@@ -103,6 +108,20 @@ const Home = () => {
 
     </Container>
     <NoTokensFoundDialog open={open} onClose={() => setOpen(false)}/>
+    <Modal
+    show={show && containsToken}
+    fullscreen={true}
+    onHide={() => setShow(false)}
+    >
+      <Modal.Header closeButton>
+          <Modal.Title id="example-custom-modal-styling-title">
+              Unity GL
+          </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+          <iframe className="" style={{ height: "100vh", width: "100%" }} src="http://jackpott.in/New%20folder/"></iframe>
+      </Modal.Body>
+    </Modal>
     </>
   );
 };
