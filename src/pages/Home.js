@@ -1,6 +1,11 @@
-import React from "react";
+import React, {useState} from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
+
+import { useRecoilState, useRecoilValue } from "recoil";
+import { ethers } from "ethers";
+import { accountAtom, containsTokenAtom, metamaskPresentAtom, v1DetailsAtom } from "../store/auth";
+
 import Background from "../assets/images/background.png";
 import ArcadePlanetImg from "../assets/images/ArcadePlanet.png";
 import Arcade from "../assets/images/ARCADE1.png";
@@ -8,9 +13,40 @@ import KittyBank from "../assets/images/KittyBank1.png";
 import BankPlanetImg from "../assets/images/BankPlanet.png";
 import Bifrost from "../assets/images/Bifrost.png";
 import BifrostPlanetImg from "../assets/images/BifrostPlanet.png";
+import NoTokensFoundDialog from "../modals/NoTokensFoundDialog";
+
 
 const Home = () => {
+  const v1Details = useRecoilValue(v1DetailsAtom);
+  const [account, setAccount] = useRecoilState(accountAtom);
+  const [metamaskPresent, setMetamaskPresent] = useRecoilState(metamaskPresentAtom);
+  const [ , setContainsToken] = useRecoilState(containsTokenAtom);
+  const [open, setOpen] = useState(false);
+
+
+  const handleArcadeClick = async () => {
+    if(metamaskPresent) {
+
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      if(account) {
+        const contract = new ethers.Contract(v1Details.contract_address, v1Details.contract_abi, provider);
+        const balance = await contract.balanceOf(account);
+        setContainsToken(parseInt(balance.toString()) > 0);
+        if(parseInt(balance.toString()) === 0) setOpen(true);
+
+      } else {
+        // setAccounts()
+        const signer = provider.getSigner();
+        setAccount(await signer.getAddress());
+
+      }
+
+    } else {
+      setMetamaskPresent((prev) => false)
+    }
+  }
   return (
+    <>
     <Container
       className="root"
       style={{
@@ -31,7 +67,7 @@ const Home = () => {
                 <img className="planet-name" src={Arcade} alt="arcade" />
             </div>
           </div>
-          <div className="planet-div">            
+          <div className="planet-div" onClick={handleArcadeClick}>
             <img
               className="zoom"
               data-bs-toggle="tooltip" data-bs-placement="right" title="Holders Only"
@@ -47,7 +83,7 @@ const Home = () => {
             <img className="planet-name" src={KittyBank} alt="arcade" />
             </div>
           </div>
-          <div className="planet-div">            
+          <div className="planet-div">
             {/* <Link to="/1"> */}
             <img className="zoom" src={BankPlanetImg} alt="kitty"/>
             {/* </Link> */}
@@ -59,13 +95,15 @@ const Home = () => {
             <img className="planet-name" src={Bifrost}  alt="bifrost" />
             </div>
           </div>
-          <div className="planet-div">            
+          <div className="planet-div">
             <img className="zoom" src={BifrostPlanetImg} alt="bifrostplanet"/>
           </div>
         </Col>
       </Row>
-        
+
     </Container>
+    <NoTokensFoundDialog open={open} onClose={() => setOpen(false)}/>
+    </>
   );
 };
 
