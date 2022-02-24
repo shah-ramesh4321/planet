@@ -16,6 +16,7 @@ function App() {
   const [ , setMetamaskPresent] = useRecoilState(metamaskPresentAtom);
   const metamaskOnboarder = useRecoilValue(metamaskOnboarderAtom);
 
+
   useEffect(() => {
     if(MetaMaskOnboarding.isMetaMaskInstalled()){
       if( account){

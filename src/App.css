@@ -1,12 +1,13 @@
-.root{
-  /* background-image: url('./images/ArcadePlanet.png'); */
-}
+/* *{
+  border: 1px red solid;
+} */
+
 
 .all-planet {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding-top: 150px;
+  padding-top: 50px;
 }
 
 .planet-div{
