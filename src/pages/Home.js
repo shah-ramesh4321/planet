@@ -184,7 +184,7 @@ const Home = () => {
           <iframe
             className=""
             style={{ height: "100vh", width: "100%" }}
-            src="http://jackpott.in/New%20folder/"
+            src="https://play2win.tech//New%20folder/index.html"
           ></iframe>
         </Modal.Body>
       </Modal>
